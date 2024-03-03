@@ -20,8 +20,9 @@ model User {
 }
 
 model Nota {
-  id     Int    @id @default(autoincrement())
+  id     Int     @id @default(autoincrement())
   text   String
-  user   User   @relation(fields: [notaId], references: [id])
+  status Boolean @default(false)
+  user   User    @relation(fields: [notaId], references: [id])
   notaId Int
 }

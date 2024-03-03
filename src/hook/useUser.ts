@@ -1,14 +1,32 @@
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useState } from "react"
 import {useRouter }from "next/navigation"
 
 
 
 
+interface Data {
+  id: number
+  text: string
+  status:boolean
+  noteId: number
+}
+
+interface person {
+  id: number
+  name: string
+  email: string
+}
+
+interface credentials {
+  email:string,
+  password:string
+}
+
 export const useUser = () => {
-  const [data, setData] = useState({email: '', password: ''})
-  const [user, setUser] = useState()
-  const [tasks, setTasks] = useState()
+  const [data, setData] = useState<credentials>({email: '', password: ''})
   const [error, setError] = useState({status:false, text:""})
+
+
   const router = useRouter()
 
   const handleOnSubmit = async (e:FormEvent) => {
@@ -17,7 +35,6 @@ export const useUser = () => {
       setError({status: true, text: "empty"})
       return
     }
-
     
     const res = await fetch("/api/users",{
       method:"POST",
@@ -26,31 +43,17 @@ export const useUser = () => {
         "Content-type": "application/json"
       }
     })
-    const jsoRes =await res.json()
-
-    if (jsoRes === null){
-      setUser(undefined)
-      setTasks(undefined)
-      setError({status: false, text: ""})
-    } else {
-      setUser(jsoRes.user)
-      setTasks(jsoRes.tasks)
-      router.push("/task")
+    const js =await res.json()
+    if(js){
+      const ta = js.tasks
+      const user = js.user
+      localStorage.setItem("tasks", JSON.stringify(ta))
+      localStorage.setItem("user", JSON.stringify(user))
+      router.push('/task')
     }
   }
 
-  useEffect(() => {
-    if(data.email === "" || data.password === ""){
-      return
-    }
-    if(user !== undefined){
-      window.localStorage.setItem("user",JSON.stringify(user))
-      window.localStorage.setItem("tasks",JSON.stringify(tasks))
-    } else {
-      window.localStorage.setItem("user","")
-      window.localStorage.setItem("tasks","")
-    }
-  },[tasks])
+
 
   
 

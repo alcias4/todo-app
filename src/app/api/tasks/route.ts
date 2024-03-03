@@ -1,22 +1,49 @@
 import { prisma } from "@/lib/prisma"
+
 import { NextRequest, NextResponse } from "next/server"
 
 
+interface Data {
+  text: string,
+  status: boolean,
+  noteId: number
+}
 
 
+export async function POST (request:NextRequest) {
+  const data:Data =await request.json()
+  
+  const res = await prisma.nota.create({
+    data: {
+      text: data.text,
+      status: data.status,
+      notaId: data.noteId
+    }
+  })
+  
+  const list = await prisma.nota.findMany({
+    where:{
+      notaId:data.noteId
+    }
+  })
 
-// export async function POST (request:NextRequest) {
-//   const data =await request.json()
+  return NextResponse.json(list)
+}
 
-//   const res = await prisma.nota.create({
-//     data:{
-//       text:data.text,
-//       notaId:1
-//     }
-//   })
 
-//   if (res) {
-
-//   }
-//   return NextResponse.json(res)
-// }
+export async function DELETE (request:NextRequest) {
+  const data =await request.json()
+  
+  const res = await prisma.nota.delete({
+    where:{
+      id:data
+    }
+  })
+  
+  const da = await prisma.nota.findMany({
+    where: {
+      notaId: res.notaId
+    }
+  })
+  return NextResponse.json(da)
+}

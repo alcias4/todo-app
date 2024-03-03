@@ -23,8 +23,8 @@ export async function POST (request:NextRequest) {
       }
     })
 
-    const {name, email} = res
-    return NextResponse.json({user: {name, email} , tasks: listTask})
+    const {name, email, id} = res
+    return NextResponse.json({user: {id,name, email} , tasks: listTask})
     
   } else {
     
