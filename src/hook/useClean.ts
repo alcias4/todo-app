@@ -1,4 +1,5 @@
 import { Data, User } from "@/type/types"
+import { useState } from "react"
 
 
 
@@ -9,6 +10,8 @@ interface Props {
 
 
 const useClean = ({refresh, setRefresh}:Props) => {
+  const [loading, setLoading] = useState(false)
+
   const cleanDelete =async () => {
     const m:User = JSON.parse(localStorage.getItem("user") || "")
     const res = await fetch("/api/tasks/clear",{
@@ -23,7 +26,27 @@ const useClean = ({refresh, setRefresh}:Props) => {
     localStorage.setItem("tasks",JSON.stringify(n))
     setRefresh(!refresh)
   }
-  return {cleanDelete}
+
+  const saveChances =async () => {
+    try{
+      setLoading(true)
+      const n = JSON.parse(localStorage.getItem("tasks") || "")
+      const res = await fetch("/api/tasks",{
+        method:"PUT",
+        body: JSON.stringify(n),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+      const  response = await res.json()
+      console.log(response)
+      localStorage.setItem("tasks",JSON.stringify(response))
+      setRefresh(!refresh)
+    } finally {
+      setLoading(false)
+    }
+  }
+  return {cleanDelete, saveChances, loading}
 }
 
 export default useClean;

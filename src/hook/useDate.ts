@@ -1,4 +1,4 @@
-import { Data, User } from "@/type/types"
+import { Data, Task, User } from "@/type/types"
 import { useEffect, useState } from "react"
 
 
@@ -26,15 +26,13 @@ const useDate = () => {
   },[refresh])
 
   const deleteNote =async (id:number) => {
-    const res = await fetch("/api/tasks",{
-      method:"DELETE",
-      body: JSON.stringify(id),
-      headers: {
-        "Content-type": "application/json"
-      }
+ 
+    const dataLocal = JSON.parse(localStorage.getItem("tasks") || "")
+    const newDate = dataLocal.filter((e:Task) => {
+      return e.id !== id
     })
-    const js = await res.json()
-    window.localStorage.setItem("tasks", JSON.stringify(js))
+    
+    window.localStorage.setItem("tasks", JSON.stringify(newDate))
     setRefresh(!refresh)
   }
 
@@ -65,20 +63,19 @@ const useDate = () => {
   }
 
   const updateStatus =async(id:number) => {
-    const res = await fetch("/api/tasks",{
-      method:"PUT",
-      body: JSON.stringify(id),
-      headers: {
-        "Content-type": "application/json"
-      }
-    })
-    const js = await res.json()
-    window.localStorage.setItem("tasks", JSON.stringify(js))
+    const da:Data = JSON.parse(localStorage.getItem("tasks") || '')
+    const r = da?.find((e) => e.id === id)
+    
+    if(typeof r?.status !== 'undefined'){
+      r.status = !r.status
+    }
+    
+    window.localStorage.setItem("tasks", JSON.stringify(da))
     setRefresh(!refresh)
   }
 
-
   
+    
   return {user,setRefresh, refresh,data, deleteNote, notesActives,noteCompleted, allNotes, updateStatus}
 }
 

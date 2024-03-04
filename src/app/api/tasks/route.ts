@@ -52,27 +52,22 @@ export async function DELETE (request:NextRequest) {
 
 
 export async function PUT (request:NextRequest) {
-  const n:number =await request.json()
-  const st:TaskCom | null = await prisma.nota.findUnique({
+  const data =await request.json()
+
+  await prisma.nota.deleteMany({
     where:{
-      id:n
+      notaId: data.noteId
     }
   })
 
-  const res = await prisma.nota.update({
+  await prisma.nota.createMany({
+    data:data
+  })
+  
+  const res = await prisma.nota.findMany({
     where:{
-      id:n
-    },
-    data:{
-      status:!st?.status
+      notaId: data.noteId
     }
   })
-
-  const da = await prisma.nota.findMany({
-    where: {
-      notaId: res.notaId
-    }
-  })
-
-  return NextResponse.json(da)
+  return NextResponse.json(res)
 }
