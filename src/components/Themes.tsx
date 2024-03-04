@@ -5,12 +5,15 @@ import { useEffect, useState } from "react";
 
 const BtnThemes = () => {
   const [them, setThem] = useState(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    if(mediaQuery.matches === true){
-      return false
-    } else {
-      return true
+      if(typeof window !== "undefined"){
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        if(mediaQuery.matches === true){
+          return false
+        } else {
+          return true
+      }
     }
+    return true
   })
 
   useEffect(()=>{
