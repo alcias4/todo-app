@@ -13,8 +13,7 @@ const Task = () => {
   return (
   <div className="w-[90%] desk:w-[750px] desk:px-16   flex justify-center dark:text-white absolute top-[150px] flex-col gap-5 ">
     <CreateTask user={user} set={setRefresh} refresh={refresh}/>
-    <TasksList listTask={data} deleteNote={deleteNote} notesActives={notesActives} allNotes={allNotes} noteCompleted={noteCompleted} updateStatus={updateStatus} cleanDelete={cleanDelete}/>  
-
+    <TasksList listTask={data} deleteNote={deleteNote} notesActives={notesActives} allNotes={allNotes} noteCompleted={noteCompleted} updateStatus={updateStatus} cleanDelete={cleanDelete}/>
   </div>  
   )
 }

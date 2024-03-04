@@ -4,12 +4,21 @@ import { useEffect, useState } from "react";
 
 
 const BtnThemes = () => {
-  const [them, setThem] = useState(true)
+  const [them, setThem] = useState(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    if(mediaQuery.matches === true){
+      return false
+    } else {
+      return true
+    }
+  })
 
   useEffect(()=>{
+
     if(them === false){
       document.querySelector("html")?.classList.add("dark")
-    } else {
+    } 
+    if(them === true) {
       document.querySelector("html")?.classList.remove("dark")
     }
   },[them])

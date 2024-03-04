@@ -10,7 +10,7 @@ interface credentials {
 export const useUser = () => {
   const [data, setData] = useState<credentials>({email: '', password: ''})
   const [error, setError] = useState({status:false, text:""})
-
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter()
 
@@ -21,20 +21,25 @@ export const useUser = () => {
       return
     }
     
-    const res = await fetch("/api/users",{
-      method:"POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-type": "application/json"
+    try {
+      setLoading(true)
+      const res = await fetch("/api/users",{
+        method:"POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+      const js =await res.json()
+      if(js){
+        const ta = js.tasks
+        const user = js.user
+        localStorage.setItem("tasks", JSON.stringify(ta))
+        localStorage.setItem("user", JSON.stringify(user))
+        router.push('/task')
       }
-    })
-    const js =await res.json()
-    if(js){
-      const ta = js.tasks
-      const user = js.user
-      localStorage.setItem("tasks", JSON.stringify(ta))
-      localStorage.setItem("user", JSON.stringify(user))
-      router.push('/task')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -42,5 +47,5 @@ export const useUser = () => {
 
   
 
-  return {setData, handleOnSubmit, data, error, setError}
+  return {setData, handleOnSubmit, data, error, setError,loading}
 }
