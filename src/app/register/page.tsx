@@ -1,24 +1,31 @@
 "use client"
 
 import useRegister from "@/hook/useRegister";
+import { useRouter } from "next/navigation";
 
 
 
 const Register = () => {
-  const {handleOnSubmit,setRegister,error,router,dataRegister} = useRegister()
+  const {handleOnSubmit,setRegister,error,dataRegister,setError} = useRegister()
+  const router = useRouter()
   return (
-  <div className="w-full flex justify-center">
-      <form className="w-80 flex flex-col gap-2 dark:bg-[#25273c] p-5 rounded" onSubmit={handleOnSubmit}>
-      <h2>Register</h2>
-      {error ? <span>Error email exist</span> : null}
-            <label htmlFor="name">Name</label>
-      <input className="dark:bg-[#181824] dark:text-white p-2 outline-none" type="text" autoComplete="off" id="name" onChange={(e)=> setRegister({...dataRegister, name:e.target.value})} />
-      <label htmlFor="email">Email</label>
-      <input className="dark:bg-[#181824] dark:text-white p-2 outline-none" type="text" autoComplete="off" id="email" onChange={(e)=> setRegister({...dataRegister, email:e.target.value})} />
-      <label htmlFor="pass">Password</label>
-      <input className="dark:bg-[#181824] dark:text-white p-2 outline-none"   autoComplete="off" type="text" id="pass" onChange={(e)=> setRegister({...dataRegister, password:e.target.value})} />
-      <button>Create</button>
-      <button onClick={() => router.push("/")}>Login in</button>
+  <div className="w-full flex items-center justify-center absolute top-[150px] desk:w-[700px] ">
+      <form className="w-[90%] h-auto flex flex-col dark:bg-[#25273c] p-5 rounded bg-[#ffffff] shadow-lg" onSubmit={handleOnSubmit}>
+      <h2 className="w-full text-center font-bold text-xl">Register</h2>
+      {/* {error.status ? <span className="text-red-600">{error.text}</span> : null} */}
+            <label className="label" htmlFor="name">Name</label>
+      <input className="input" type="text" autoComplete="off" id="name" onChange={(e)=> setRegister({...dataRegister, name:e.target.value})} />
+      <label className="label" htmlFor="email">Email</label>
+      <input className="input" type="text" autoComplete="off" id="email" onChange={(e)=> setRegister({...dataRegister, email:e.target.value})} />
+      <label className="label" htmlFor="pass">Password</label>
+      <input className="input"   autoComplete="off" type="text" id="pass" onChange={(e)=> setRegister({...dataRegister, password:e.target.value})} />
+      <div className="mt-5 w-full flex justify-center gap-16 ">
+        <button className="ease-in duration-200 hover:opacity-60">Create</button>
+        <button className="ease-in duration-200 hover:opacity-60" onClick={() => {
+          setError({status:false, text:""})
+          router.push("/")
+        }}>Login in</button>
+      </div>
     </form>
   </div>
   )

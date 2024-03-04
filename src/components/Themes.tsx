@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 
 const BtnThemes = () => {
-  const [them, setThem] = useState(false)
+  const [them, setThem] = useState(true)
 
   useEffect(()=>{
     if(them === false){

@@ -4,8 +4,15 @@
 
 @layer components {
   .nav {
-    @apply dark:bg-[url('/img/bg-mobile-dark.jpg')];
-    @apply bg-[url('/img/bg-mobile-light.jpg')];
-    @apply bg-cover;
+    @apply dark:bg-[url('/img/bg-mobile-dark.jpg')] bg-[url('/img/bg-mobile-light.jpg')] bg-cover desk:dark:bg-[url('/img/bg-desktop-dark.jpg')] desk:bg-[url('/img/bg-desktop-light.jpg')];
+  }
+
+  .input {
+    @apply dark:bg-[#181824] outline-none rounded-md p-2 bg-[#f7f7f9];
+  }
+
+  .label {
+    @apply mt-5;
+    @apply ml-1;
   }
 }

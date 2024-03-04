@@ -7,6 +7,11 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: "class",
+  theme:{
+    screens: {
+      "desk": "750px"
+    }
+  },
   plugins: [],
 };
 export default config;

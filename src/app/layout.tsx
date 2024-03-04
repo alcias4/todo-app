@@ -20,8 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body id="body" className={josefinSans.className}>
-      <main className="w-full h-screen dark:bg-[#181824] dark:text-white relative flex justify-center">
+      <body  id="body" className={josefinSans.className}>
+      <main className="w-full ease-in duration-200  h-screen bg-[#f7f7f9] dark:bg-[#181824] dark:text-white relative flex justify-center">
       <Nav />
       {children}
     </main>

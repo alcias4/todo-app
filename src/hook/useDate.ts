@@ -63,7 +63,23 @@ const useDate = () => {
     const m:Data = (JSON.parse(n || "[]"))
     setData(m)
   }
-  return {user,setRefresh, refresh,data, deleteNote, notesActives,noteCompleted, allNotes}
+
+  const updateStatus =async(id:number) => {
+    const res = await fetch("/api/tasks",{
+      method:"PUT",
+      body: JSON.stringify(id),
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+    const js = await res.json()
+    window.localStorage.setItem("tasks", JSON.stringify(js))
+    setRefresh(!refresh)
+  }
+
+
+  
+  return {user,setRefresh, refresh,data, deleteNote, notesActives,noteCompleted, allNotes, updateStatus}
 }
 
 export default useDate;

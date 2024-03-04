@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 
 
 
@@ -10,10 +10,14 @@ const useRegister = () => {
     password: ""
   })
 
-  const [error, setError] = useState(false)
+  const [error, setError] = useState({status: false, text:""})
   const router = useRouter()
   const handleOnSubmit =async (e:FormEvent) => {
     e.preventDefault()
+    if (dataRegister.email === "" || dataRegister.name === "" || dataRegister.password === ""){
+      setError({text: "Empty input!", status:true})
+      return
+    }
 
     const res = await fetch("/api/users/create", {
       method: "POST",
@@ -25,12 +29,16 @@ const useRegister = () => {
 
     const response = await res.json()
     if(response.user){
-      setError(true)
+      setError({text:"email exists", status:true})
     }
 
   }
 
-  return {handleOnSubmit, setRegister, error, router, dataRegister}
+  useEffect(()=> {
+    setError({text:"", status:false})
+  }, [dataRegister])
+
+  return {handleOnSubmit, setRegister, error, router, dataRegister,setError}
 }
 
 export default useRegister;

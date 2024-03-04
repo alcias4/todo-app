@@ -57,5 +57,5 @@ export const useUser = () => {
 
   
 
-  return {setData, handleOnSubmit, data, error}
+  return {setData, handleOnSubmit, data, error, setError}
 }

@@ -1,4 +1,6 @@
 import { prisma } from "@/lib/prisma"
+import { TaskCom } from "@/type/types"
+
 
 import { NextRequest, NextResponse } from "next/server"
 
@@ -45,5 +47,32 @@ export async function DELETE (request:NextRequest) {
       notaId: res.notaId
     }
   })
+  return NextResponse.json(da)
+}
+
+
+export async function PUT (request:NextRequest) {
+  const n:number =await request.json()
+  const st:TaskCom | null = await prisma.nota.findUnique({
+    where:{
+      id:n
+    }
+  })
+
+  const res = await prisma.nota.update({
+    where:{
+      id:n
+    },
+    data:{
+      status:!st?.status
+    }
+  })
+
+  const da = await prisma.nota.findMany({
+    where: {
+      notaId: res.notaId
+    }
+  })
+
   return NextResponse.json(da)
 }
