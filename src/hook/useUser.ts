@@ -2,21 +2,6 @@ import { FormEvent, useState } from "react"
 import {useRouter }from "next/navigation"
 
 
-
-
-interface Data {
-  id: number
-  text: string
-  status:boolean
-  noteId: number
-}
-
-interface person {
-  id: number
-  name: string
-  email: string
-}
-
 interface credentials {
   email:string,
   password:string
