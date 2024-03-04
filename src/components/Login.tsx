@@ -11,7 +11,7 @@ const Login = () => {
   return (<>
   {
     !loading? 
-    <form className="w-[90%] flex flex-col dark:bg-[#25273c] p-5 rounded-lg relative bg-[#ffffff] shadow-lg" onSubmit={handleOnSubmit}>
+    <form className="w-[90%] flex flex-col dark:bg-[#25273c] p-5 rounded-lg relative bg-[#ffffff] shadow-lg h-[230px]" onSubmit={handleOnSubmit}>
     {/* <span className={`${!error.status? "hidden": null} flex gap-2 text-2xl items-center text-[#ff0000]`}>
       <Cross status={false}/> 
       {error.text}
