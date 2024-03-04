@@ -24,7 +24,7 @@ const TasksList: React.FC<Props>  = ({listTask,deleteNote, notesActives, noteCom
   return (
     <ul className="dark:bg-[#25273c] bg-[#ffffff] flex flex-col gap-2 rounded relative shadow-lg">
       {
-        listTask?.toReversed().map((e) => (
+        listTask?.map((e) => (
           <li className="w-full px-4 p-2 border-b-[1px] border-gray-400/50 flex font-bold gap-4 items-center" key={e.id}>
             <button className={`w-[20px] h-[20px] flex justify-center items-center border-[1px] border-gray-400/50 rounded-full ${e.status?"bg-gradient-to-r from-cyan-500 to-blue-500":""}`} onClick={() => {
               setCheck(!check)
