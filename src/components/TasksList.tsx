@@ -62,7 +62,7 @@ const TasksList: React.FC<Props>  = ({listTask,deleteNote, notesActives, noteCom
 
       
       <section className="absolute flex p-2 w-full rounded -bottom-[60px] dark:bg-[#25273c] justify-end gap-5 dark:text-[#555675] font-bold bg-[#ffffff] shadow-lg desk:justify-center">
-      <button onClick={() => saveChances()} type="button"  className="text-white ease-in duration-200  hover:bg-opacity-50 left-[12px] absolute border bg-[#4f74ca] border-sky-900 rounded-lg px-2 " >Save</button>
+      <button onClick={() => saveChances()} type="button"  className="text-white ease-in duration-200  hover:bg-opacity-50 left-[12px] absolute border bg-[#4f74ca] border-sky-900 rounded-lg px-2 " >Save <span>Changes</span></button>
         <button type="button" onClick={allNotes}  className="text-[#4f74ca]  dark:hover:text-white ease-in duration-200 hover:text-opacity-50">All</button>
         <button type="button" onClick={notesActives} className="dark:hover:text-white ease-in duration-200 hover:text-black/65">Active</button>
         <button type="button" onClick={noteCompleted} className="dark:hover:text-white ease-in duration-200 hover:text-black/65">Completed</button>

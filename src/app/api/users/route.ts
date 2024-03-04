@@ -13,10 +13,9 @@ export async function POST (request:NextRequest) {
   const  res =await prisma.user.findUnique({
     where: {
       email:data.email,
-      password:data.password
     }
   })
-  if (res) {
+  if (res && res.password === data.password) {
     const listTask = await prisma.nota.findMany({
       where: {
         notaId: Number(res.id)
