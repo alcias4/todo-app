@@ -67,8 +67,12 @@ const TasksList: React.FC<Props>  = ({listTask,deleteNote, notesActives, noteCom
         <button type="button" onClick={notesActives} className="dark:hover:text-white ease-in duration-200 hover:text-black/65">Active</button>
         <button type="button" onClick={noteCompleted} className="dark:hover:text-white ease-in duration-200 hover:text-black/65">Completed</button>
         <button onClick={() => {
-          window.localStorage.clear()
-          router.push('/')
+          saveChances()
+          if (!loading){
+            window.localStorage.clear()
+            router.push('/')
+          } 
+
         }} className="dark:hover:text-white ease-in duration-200 hover:text-black/65 mr-2 desk:mr-0">Exit</button>
       </section>
     </ul>
